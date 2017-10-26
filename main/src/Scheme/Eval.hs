@@ -1,5 +1,9 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+-- TODO:
+-- - refactor numericBinop to support non-Integer types
+-- - function definitions
+
 module Scheme.Eval
   ( showVal
   , eval )

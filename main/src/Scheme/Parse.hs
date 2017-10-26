@@ -1,11 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+-- TODO: Refactor to not use Legacy Parsec
+
 module Scheme.Parse
   ( readExpr
   , parseString )
   where
 
-import Text.ParserCombinators.Parsec hiding (spaces)
+import Text.Parsec hiding (spaces)
 import Data.Char
 import Data.Text (Text)
 import Data.List
@@ -14,10 +16,11 @@ import Data.Ratio
 import Data.Complex
 import qualified Data.Vector as V
 import Numeric
+import Control.Monad.Identity (Identity)
 
 import Scheme.LispVal
 
-symbol :: Parser Char
+symbol :: Parsec Text () Char
 symbol = oneOf "!$%&|*+-/:<=>?@^_~"
 
 readExpr :: String -> LispVal
@@ -25,23 +28,23 @@ readExpr input = case parse parseExpr "lisp" input of
   Left err -> String $ T.pack ("No match: " ++ show err)
   Right val -> val
 
-spaces :: Parser ()
+spaces :: Parsec Text () ()
 spaces = skipMany1 space
 
-parseString :: Parser LispVal
+parseString :: Parsec Text () LispVal
 parseString = do
   _ <- char '"'
   x <- many $ escapedChars <|> noneOf "\"\\"
   _ <- char '"'
   return . String . T.pack $ x
 
-caseInsensitiveChar :: Char -> Parser Char
+caseInsensitiveChar :: Char -> Parsec Text () Char
 caseInsensitiveChar c = char (toLower c) <|> char (toUpper c)
 
-caseInsensitiveString :: String -> Parser String
-caseInsensitiveString s = try (mapM caseInsensitiveChar s) <?> "\"" ++ s ++ "\""
+caseInsensitiveString :: String -> Parsec Text () Text
+caseInsensitiveString s = try (mapM caseInsensitiveChar s) <?> "\"" `T.append` s `T.append` "\""
 
-parseCharacter :: Parser LispVal
+parseCharacter :: Parsec Text () LispVal
 parseCharacter = do
   _ <- try $ string "#\\"
   value <- try (caseInsensitiveString "newline" <|> caseInsensitiveString "space")
@@ -53,7 +56,7 @@ parseCharacter = do
                          "newline" -> '\n'
                          _ -> (value !! 0)
 
-escapedChars :: Parser Char
+escapedChars :: Parsec Text () Char
 escapedChars = do _ <- char '\\'      -- backslash
                   x <- oneOf "\\\nrt" -- backslash or dquote
                   return $ case x of
@@ -64,7 +67,7 @@ escapedChars = do _ <- char '\\'      -- backslash
                              't'  -> '\t'
                              _    -> x -- unreachable
 
-parseAtom :: Parser LispVal
+parseAtom :: Parsec Text () LispVal
 parseAtom = do
   first <- letter <|> symbol
   rest <- many (letter <|> digit <|> symbol)
@@ -74,7 +77,7 @@ parseAtom = do
              "#f" -> Bool False
              _    -> Atom atom
 
-parseBool :: Parser LispVal
+parseBool :: Parsec Text () LispVal
 parseBool = do
   _ <- char '#'
   (char 't' >> return (Bool True)) <|> (char 'f' >> (return (Bool False)))
@@ -83,51 +86,53 @@ toDouble :: LispVal -> Double
 toDouble (Float f) = realToFrac f
 toDouble _ = error "Not float/num"
 
-parseComplex :: Parser LispVal
+parseComplex :: Parsec Text () LispVal
 parseComplex = do x <- (try parseFloat <|> parseDecimal)
                   _ <- char '+'
                   y <- (try parseFloat <|> parseDecimal)
                   _ <- char 'i'
                   return $ Complex (toDouble x :+ toDouble y)
 
-parseRatio :: Parser LispVal
+parseRatio :: Parsec Text () LispVal
 parseRatio = do x <- many1 digit
                 _ <- char '/'
                 y <- many1 digit
                 return $ Ratio ((read x) % (read y))
 
-parseFloat :: Parser LispVal
+parseFloat :: Parsec Text () LispVal
 parseFloat = do x <- many1 digit
                 _ <- char '.'
                 y <- many1 digit
                 return $ Float (fst.head $ readFloat (x ++ "." ++ y))
 
-parseNumber :: Parser LispVal
+-- TODO: probably don't need all these fns
+
+parseNumber :: Parsec Text () LispVal
 parseNumber = parseDecimal
           <|> parseDecPref
           <|> parseHex
           <|> parseOct
           <|> parseBin
 
-parseDecimal :: Parser LispVal
+parseDecimal :: Parsec Text () LispVal
 parseDecimal = many1 digit >>= return . Number . read
 
-parseDecPref :: Parser LispVal
+parseDecPref :: Parsec Text () LispVal
 parseDecPref = do _ <- try $ string "#d"
                   x <- many1 digit
                   (return . Number . read) x
 
-parseHex :: Parser LispVal
+parseHex :: Parsec Text () LispVal
 parseHex = do _ <- try $ string "#x"
               x <- many1 hexDigit
               return $ Number (hexToDec . T.pack $ x)
 
-parseOct :: Parser LispVal
+parseOct :: Parsec Text () LispVal
 parseOct = do _ <- try $ string "#o"
               x <- many1 octDigit
               return $ Number (octToDec . T.pack $ x)
 
-parseBin :: Parser LispVal
+parseBin :: Parsec Text () LispVal
 parseBin = do _ <- try $ string "#b"
               x <- many1 (oneOf "10")
               return $ Number (binToDec . T.pack $ x)
@@ -142,19 +147,19 @@ binToDec = foldr (\c s -> s * 2 + c) 0 . reverse . map c2i . T.unpack
                 then 0
                 else 1
 
-parseList :: Parser LispVal
+parseList :: Parsec Text () LispVal
 parseList = between beg end parseList'
             where beg = (char '(' >> skipMany space)
                   end = (skipMany space >> char ')')
 
-parseList' :: Parser LispVal
+parseList' :: Parsec Text () LispVal
 parseList' = do list <- sepEndBy parseExpr spaces
                 maybeDatum <- optionMaybe (char '.' >> spaces >> parseExpr)
                 return $ case maybeDatum of
                            Nothing -> List list
                            Just datum -> DottedList list datum
 
-parseVector :: Parser LispVal
+parseVector :: Parsec Text () LispVal
 parseVector = between beg end parseVector'
               where beg = (string "#(" >> skipMany space)
                     end = (skipMany space >> char ')')
@@ -162,22 +167,22 @@ parseVector = between beg end parseVector'
 parseVector' = do list <- sepEndBy parseExpr spaces
                   return . Vector $ V.fromList list
 
-parseQuoted :: Parser LispVal
+parseQuoted :: Parsec Text () LispVal
 parseQuoted = do _ <- char '\''
                  x <- parseExpr
                  return $ List [Atom "quote", x]
 
-parseQuasiquote :: Parser LispVal
+parseQuasiquote :: Parsec Text () LispVal
 parseQuasiquote = do _ <- char '`'
                      x <- parseExpr
                      return $ List [Atom "quasiquote", x]
 
-parseUnquote :: Parser LispVal
+parseUnquote :: Parsec Text () LispVal
 parseUnquote = do _ <- char ','
                   x <- parseExpr
                   return $ List [Atom "unquote", x]
 
-parseExpr :: Parser LispVal
+parseExpr :: Parsec Text () LispVal
 parseExpr = parseAtom
         <|> parseString
         <|> try parseComplex

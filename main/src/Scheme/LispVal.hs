@@ -1,5 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+-- TODO:
+-- - rethink adt
+
 module Scheme.LispVal
   ( LispVal (..)
   , showVal )

@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+-- TODO: Use Control.Monad.Except, and Either types for Parsec
+
 module Scheme.Error
   ( LispError (..)
   , ThrowsError (..)
@@ -10,7 +12,7 @@ module Scheme.Error
 import Control.Monad.Error
 import Data.Text (Text)
 import qualified Data.Text as T
-import Text.ParserCombinators.Parsec.Error
+import Text.Parsec
 
 import Scheme.LispVal
 import Scheme.Parse
