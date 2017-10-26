@@ -1,0 +1,11 @@
+module Main where
+
+import System.Environment
+import Data.Text (Text)
+import qualified Data.Text as T
+
+import Scheme.Parse
+import Scheme.Eval
+
+main :: IO ()
+main = getArgs >>= print . eval . readExpr . head

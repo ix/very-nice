@@ -1,0 +1,24 @@
+{-# LANGUAGE OverloadedStrings #-}
+
+module Scheme.LispVal
+  ( LispVal (..) )
+  where
+
+import Data.Text (Text)
+import Data.Text as T
+import Data.Ratio
+import Data.Complex
+import qualified Data.Vector as V
+
+data LispVal =
+    Atom Text
+  | List [LispVal]
+  | DottedList [LispVal] LispVal
+  | Vector (V.Vector LispVal)
+  | Number Integer
+  | Float Double
+  | Ratio Rational
+  | Complex (Complex Double)
+  | String Text
+  | Character Char
+  | Bool Bool

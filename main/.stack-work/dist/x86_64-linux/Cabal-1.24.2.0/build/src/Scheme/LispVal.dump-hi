@@ -1,0 +1,442 @@
+
+==================== FINAL INTERFACE ====================
+2017-10-12 18:28:53.091173383 UTC
+
+interface very-nice2-0.1.0.0-JVAQRNZycEHKkqLkDBpt2K:Scheme.LispVal 8002
+  interface hash: 396262c5527bad9b03730577a1f23a42
+  ABI hash: 46b64363eba4219a8339bd5306a4360f
+  export-list hash: 844d3d3577cf0766f339ed033741201b
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: 403981d57c68e1b921ee0c33e9f402bc
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  Scheme.LispVal.showVal
+  Scheme.LispVal.LispVal{Scheme.LispVal.Atom Scheme.LispVal.Bool Scheme.LispVal.Character Scheme.LispVal.Complex Scheme.LispVal.DottedList Scheme.LispVal.Float Scheme.LispVal.List Scheme.LispVal.Number Scheme.LispVal.Ratio Scheme.LispVal.String Scheme.LispVal.Vector}
+module dependencies:
+package dependencies: array-0.5.1.1@array-0.5.1.1 base-4.9.1.0
+                      binary-0.8.3.0@binary-0.8.3.0
+                      bytestring-0.10.8.1@bytestring-0.10.8.1
+                      containers-0.5.7.1@containers-0.5.7.1
+                      deepseq-1.4.2.0@deepseq-1.4.2.0 ghc-prim-0.5.0.0
+                      integer-gmp-1.0.0.1
+                      primitive-0.6.2.0@primitive-0.6.2.0-4578caNkWQ54Gt1mxLF2Yh
+                      text-1.2.2.2@text-1.2.2.2-9UQZjEJZQFSGMffj1Z5g00
+                      transformers-0.5.2.0@transformers-0.5.2.0
+                      vector-0.12.0.1@vector-0.12.0.1-692PQMDMB6pIQ1uGwefDcQ
+orphans: base-4.9.1.0:GHC.Base base-4.9.1.0:GHC.Float
+         binary-0.8.3.0@binary-0.8.3.0:Data.Binary.Generic
+         bytestring-0.10.8.1@bytestring-0.10.8.1:Data.ByteString.Builder
+         text-1.2.2.2@text-1.2.2.2-9UQZjEJZQFSGMffj1Z5g00:Data.Text
+         text-1.2.2.2@text-1.2.2.2-9UQZjEJZQFSGMffj1Z5g00:Data.Text.Show
+         transformers-0.5.2.0@transformers-0.5.2.0:Control.Monad.Trans.Error
+         vector-0.12.0.1@vector-0.12.0.1-692PQMDMB6pIQ1uGwefDcQ:Data.Vector.Fusion.Bundle
+family instance modules: base-4.9.1.0:Control.Applicative
+                         base-4.9.1.0:Data.Complex base-4.9.1.0:Data.Either
+                         base-4.9.1.0:Data.Functor.Const base-4.9.1.0:Data.Functor.Identity
+                         base-4.9.1.0:Data.List.NonEmpty base-4.9.1.0:Data.Monoid
+                         base-4.9.1.0:Data.Semigroup base-4.9.1.0:Data.Type.Equality
+                         base-4.9.1.0:Data.Version base-4.9.1.0:Data.Void
+                         base-4.9.1.0:GHC.Exts base-4.9.1.0:GHC.Generics
+                         base-4.9.1.0:GHC.IO.Exception base-4.9.1.0:GHC.TypeLits
+                         containers-0.5.7.1@containers-0.5.7.1:Data.IntMap.Base
+                         containers-0.5.7.1@containers-0.5.7.1:Data.IntSet.Base
+                         containers-0.5.7.1@containers-0.5.7.1:Data.Map.Base
+                         containers-0.5.7.1@containers-0.5.7.1:Data.Sequence
+                         containers-0.5.7.1@containers-0.5.7.1:Data.Set.Base
+                         primitive-0.6.2.0@primitive-0.6.2.0-4578caNkWQ54Gt1mxLF2Yh:Control.Monad.Primitive
+                         primitive-0.6.2.0@primitive-0.6.2.0-4578caNkWQ54Gt1mxLF2Yh:Data.Primitive.Array
+                         text-1.2.2.2@text-1.2.2.2-9UQZjEJZQFSGMffj1Z5g00:Data.Text
+                         vector-0.12.0.1@vector-0.12.0.1-692PQMDMB6pIQ1uGwefDcQ:Data.Vector
+import  -/  base-4.9.1.0:Data.Complex ec864ed8b68bbdf9c6cffa700c3cfe8e
+import  -/  base-4.9.1.0:Data.Ratio 73e2d5dd51ef6c1a1767a580e2cd7459
+import  -/  base-4.9.1.0:GHC.Base c4231c43c07e46080a26bf94094c7aa1
+import  -/  base-4.9.1.0:GHC.Real 82e4e59051a13dba1da63e1e970a69e6
+import  -/  base-4.9.1.0:GHC.Show a027f5ac24879eaba752f44aa90fe511
+import  -/  base-4.9.1.0:Prelude 22dd289b8469a8fa8dc81cab7b237771
+import  -/  integer-gmp-1.0.0.1:GHC.Integer.Type 318df275d77dcdb18e0006d8d7870c2a
+import  -/  text-1.2.2.2@text-1.2.2.2-9UQZjEJZQFSGMffj1Z5g00:Data.Text 28074c70d3351fb3368d27c0a438ae07
+import  -/  text-1.2.2.2@text-1.2.2.2-9UQZjEJZQFSGMffj1Z5g00:Data.Text.Internal 9bfcbbbe07ecef48f631025a838df7da
+import  -/  text-1.2.2.2@text-1.2.2.2-9UQZjEJZQFSGMffj1Z5g00:Data.Text.Show 516b88f1e0e0dbed91cb925542602306
+import  -/  vector-0.12.0.1@vector-0.12.0.1-692PQMDMB6pIQ1uGwefDcQ:Data.Vector 6714bbd22aa495e7dd4cf02a1891a465
+33b6c02c47a7551a9184b99ae0083a3e
+  $fShowLispVal :: GHC.Show.Show Scheme.LispVal.LispVal
+  DFunId
+  {- Strictness: m, Inline: [ALWAYS] CONLIKE,
+     Unfolding: DFun:.
+                  @ Scheme.LispVal.LispVal
+                  Scheme.LispVal.$fShowLispVal_$cshowsPrec
+                  Scheme.LispVal.$fShowLispVal_$cshow
+                  Scheme.LispVal.$fShowLispVal_$cshowList -}
+33b6c02c47a7551a9184b99ae0083a3e
+  $fShowLispVal1 ::
+    Scheme.LispVal.LispVal -> GHC.Base.String -> [GHC.Types.Char]
+  {- Arity: 2,
+     Unfolding: (\ (x :: Scheme.LispVal.LispVal)
+                   (s :: GHC.Base.String)[OneShot] ->
+                 case Scheme.LispVal.showVal
+                        x of wild { Data.Text.Internal.Text dt dt1 dt2 ->
+                 let {
+                   end :: GHC.Prim.Int# = GHC.Prim.+# dt1 dt2
+                 } in
+                 letrec {
+                   $wunfold :: GHC.Prim.Int# -> [GHC.Types.Char]
+                     {- Arity: 1, Strictness: <S,U>, Inline: [0] -}
+                   = \ (ww :: GHC.Prim.Int#) ->
+                     case GHC.Prim.tagToEnum#
+                            @ GHC.Types.Bool
+                            (GHC.Prim.>=# ww end) of wild1 {
+                       GHC.Types.False
+                       -> case GHC.Prim.indexWord16Array# dt ww of r# { DEFAULT ->
+                          case GHC.Prim.tagToEnum#
+                                 @ GHC.Types.Bool
+                                 (GHC.Prim.geWord# r# 55296##) of wild2 {
+                            GHC.Types.False
+                            -> GHC.Types.:
+                                 @ GHC.Types.Char
+                                 (GHC.Types.C# (GHC.Prim.chr# (GHC.Prim.word2Int# r#)))
+                                 ($wunfold (GHC.Prim.+# ww 1#))
+                            GHC.Types.True
+                            -> case GHC.Prim.tagToEnum#
+                                      @ GHC.Types.Bool
+                                      (GHC.Prim.leWord# r# 56319##) of wild3 {
+                                 GHC.Types.False
+                                 -> GHC.Types.:
+                                      @ GHC.Types.Char
+                                      (GHC.Types.C# (GHC.Prim.chr# (GHC.Prim.word2Int# r#)))
+                                      ($wunfold (GHC.Prim.+# ww 1#))
+                                 GHC.Types.True
+                                 -> case GHC.Prim.indexWord16Array#
+                                           dt
+                                           (GHC.Prim.+# ww 1#) of r#1 { DEFAULT ->
+                                    GHC.Types.:
+                                      @ GHC.Types.Char
+                                      (GHC.Types.C#
+                                         (GHC.Prim.chr#
+                                            (GHC.Prim.+#
+                                               (GHC.Prim.+#
+                                                  (GHC.Prim.uncheckedIShiftL#
+                                                     (GHC.Prim.-# (GHC.Prim.word2Int# r#) 55296#)
+                                                     10#)
+                                                  (GHC.Prim.-# (GHC.Prim.word2Int# r#1) 56320#))
+                                               65536#)))
+                                      ($wunfold (GHC.Prim.+# ww 2#)) } } } }
+                       GHC.Types.True -> GHC.Types.[] @ GHC.Types.Char }
+                 } in
+                 GHC.Base.++ @ GHC.Types.Char ($wunfold dt1) s }) -}
+33b6c02c47a7551a9184b99ae0083a3e
+  $fShowLispVal_$cshow :: Scheme.LispVal.LispVal -> GHC.Base.String
+  {- Arity: 1, Strictness: <S,1*U>,
+     Unfolding: (\ (x :: Scheme.LispVal.LispVal) ->
+                 case Scheme.LispVal.showVal
+                        x of wild { Data.Text.Internal.Text dt dt1 dt2 ->
+                 let {
+                   end :: GHC.Prim.Int# = GHC.Prim.+# dt1 dt2
+                 } in
+                 letrec {
+                   $wunfold :: GHC.Prim.Int# -> [GHC.Types.Char]
+                     {- Arity: 1, Strictness: <S,U>, Inline: [0] -}
+                   = \ (ww :: GHC.Prim.Int#) ->
+                     case GHC.Prim.tagToEnum#
+                            @ GHC.Types.Bool
+                            (GHC.Prim.>=# ww end) of wild1 {
+                       GHC.Types.False
+                       -> case GHC.Prim.indexWord16Array# dt ww of r# { DEFAULT ->
+                          case GHC.Prim.tagToEnum#
+                                 @ GHC.Types.Bool
+                                 (GHC.Prim.geWord# r# 55296##) of wild2 {
+                            GHC.Types.False
+                            -> GHC.Types.:
+                                 @ GHC.Types.Char
+                                 (GHC.Types.C# (GHC.Prim.chr# (GHC.Prim.word2Int# r#)))
+                                 ($wunfold (GHC.Prim.+# ww 1#))
+                            GHC.Types.True
+                            -> case GHC.Prim.tagToEnum#
+                                      @ GHC.Types.Bool
+                                      (GHC.Prim.leWord# r# 56319##) of wild3 {
+                                 GHC.Types.False
+                                 -> GHC.Types.:
+                                      @ GHC.Types.Char
+                                      (GHC.Types.C# (GHC.Prim.chr# (GHC.Prim.word2Int# r#)))
+                                      ($wunfold (GHC.Prim.+# ww 1#))
+                                 GHC.Types.True
+                                 -> case GHC.Prim.indexWord16Array#
+                                           dt
+                                           (GHC.Prim.+# ww 1#) of r#1 { DEFAULT ->
+                                    GHC.Types.:
+                                      @ GHC.Types.Char
+                                      (GHC.Types.C#
+                                         (GHC.Prim.chr#
+                                            (GHC.Prim.+#
+                                               (GHC.Prim.+#
+                                                  (GHC.Prim.uncheckedIShiftL#
+                                                     (GHC.Prim.-# (GHC.Prim.word2Int# r#) 55296#)
+                                                     10#)
+                                                  (GHC.Prim.-# (GHC.Prim.word2Int# r#1) 56320#))
+                                               65536#)))
+                                      ($wunfold (GHC.Prim.+# ww 2#)) } } } }
+                       GHC.Types.True -> GHC.Types.[] @ GHC.Types.Char }
+                 } in
+                 $wunfold dt1 }) -}
+33b6c02c47a7551a9184b99ae0083a3e
+  $fShowLispVal_$cshowList ::
+    [Scheme.LispVal.LispVal] -> GHC.Show.ShowS
+  {- Arity: 2, Strictness: <S,1*U><L,U>,
+     Unfolding: (\ (ls :: [Scheme.LispVal.LispVal])
+                   (s :: GHC.Base.String) ->
+                 GHC.Show.showList__
+                   @ Scheme.LispVal.LispVal
+                   Scheme.LispVal.$fShowLispVal1
+                   ls
+                   s) -}
+33b6c02c47a7551a9184b99ae0083a3e
+  $fShowLispVal_$cshowsPrec ::
+    GHC.Types.Int -> Scheme.LispVal.LispVal -> GHC.Show.ShowS
+  {- Arity: 3, Strictness: <L,A><S,1*U><L,1*U>, Inline: INLINE[0],
+     Unfolding: InlineRule (3, True, True)
+                (\ (w :: GHC.Types.Int)
+                   (w1 :: Scheme.LispVal.LispVal)
+                   (w2 :: GHC.Base.String) ->
+                 Scheme.LispVal.$w$cshowsPrec w1 w2) -}
+289a65ddc284a8613d98745a6e69d9ac
+  $tc'Atom :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   4944148236976644148##
+                   14902068793828029410##
+                   Scheme.LispVal.$trModule
+                   Scheme.LispVal.$tc'Atom1) -}
+c13b2a1c330ac72a94b37f29021b9e58
+  $tc'Atom1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "'Atom"#) -}
+2a060dadcc35eb3b1373e72c0d322676
+  $tc'Bool :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   9154247724978603076##
+                   3955301972730039769##
+                   Scheme.LispVal.$trModule
+                   Scheme.LispVal.$tc'Bool1) -}
+6cd303911d94ab8f917ac34b1de59fdd
+  $tc'Bool1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "'Bool"#) -}
+1ff075bae9411e70b83f9e738402935f
+  $tc'Character :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   16389745114808918344##
+                   11628381186326919326##
+                   Scheme.LispVal.$trModule
+                   Scheme.LispVal.$tc'Character1) -}
+336daca3ae27c74caab8e43feb06a7d3
+  $tc'Character1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "'Character"#) -}
+b089b887c69950eab206137c0311082d
+  $tc'Complex :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   416559203826743466##
+                   12928069190669274767##
+                   Scheme.LispVal.$trModule
+                   Scheme.LispVal.$tc'Complex1) -}
+2923ccb3e95c4f4b9bfb566a289a0c3f
+  $tc'Complex1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "'Complex"#) -}
+162a563681d1a257b1af26b789d1f573
+  $tc'DottedList :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   6133972038441856173##
+                   4009106765258065621##
+                   Scheme.LispVal.$trModule
+                   Scheme.LispVal.$tc'DottedList1) -}
+7fed9cfaa02bf728a2a7804d37f108c7
+  $tc'DottedList1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "'DottedList"#) -}
+da538521c62e78f9fd419ad16124244f
+  $tc'Float :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   14424997199086803049##
+                   3919359736590651881##
+                   Scheme.LispVal.$trModule
+                   Scheme.LispVal.$tc'Float1) -}
+5ba664e9a4230bc8373455eaae005e45
+  $tc'Float1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "'Float"#) -}
+ee68a1cc2c7d3027c45093650d5469e7
+  $tc'List :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   14530786425270821463##
+                   1147704906125658977##
+                   Scheme.LispVal.$trModule
+                   Scheme.LispVal.$tc'List1) -}
+f7efd1f90bd6f33d6617d9312c104405
+  $tc'List1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "'List"#) -}
+21c0c7cd8b29dd416976bdb952a4534f
+  $tc'Number :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   5168705879273162740##
+                   7764692833483248415##
+                   Scheme.LispVal.$trModule
+                   Scheme.LispVal.$tc'Number1) -}
+ff73799aaeff9b46136412177f16c96a
+  $tc'Number1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "'Number"#) -}
+19dfa44a13f09a3a3d0f3f6bd705ea38
+  $tc'Ratio :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   7914478720033224490##
+                   8041277300370047939##
+                   Scheme.LispVal.$trModule
+                   Scheme.LispVal.$tc'Ratio1) -}
+039bed35c86074e5e5f93d85f0d5c8f9
+  $tc'Ratio1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "'Ratio"#) -}
+643dba2c87d1e51bca84b69675c641bf
+  $tc'String :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   6079610444748521978##
+                   9408567090570078751##
+                   Scheme.LispVal.$trModule
+                   Scheme.LispVal.$tc'String1) -}
+78c5f45a5ce5673f43e6a6a2bb3d19df
+  $tc'String1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "'String"#) -}
+fe562ef2f591cfe068778ab44d976c03
+  $tc'Vector :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   3732714576768303851##
+                   15423114779074467586##
+                   Scheme.LispVal.$trModule
+                   Scheme.LispVal.$tc'Vector1) -}
+43bf44b9737cb1da19f1c88a9649dc72
+  $tc'Vector1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "'Vector"#) -}
+c07dbac916abfa084e9bd45203ca4b31
+  $tcLispVal :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   3450165489885358394##
+                   14203757452749961380##
+                   Scheme.LispVal.$trModule
+                   Scheme.LispVal.$tcLispVal1) -}
+639232458175bf44a614ce4d79cf1b41
+  $tcLispVal1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "LispVal"#) -}
+5829c6f7ebcef5bfba0d4907b30c6b5e
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module
+                   Scheme.LispVal.$trModule2
+                   Scheme.LispVal.$trModule1) -}
+3aa4cc3a283e979da39935df1022d7aa
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "Scheme.LispVal"#) -}
+ea3e450cd0108201747d3b05974caab3
+  $trModule2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS
+                   "very-nice2-0.1.0.0-JVAQRNZycEHKkqLkDBpt2K"#) -}
+33b6c02c47a7551a9184b99ae0083a3e
+  $w$cshowsPrec ::
+    Scheme.LispVal.LispVal -> GHC.Base.String -> [GHC.Types.Char]
+  {- Arity: 2, Strictness: <S,1*U><L,1*U>, Inline: [0],
+     Unfolding: (\ (w :: Scheme.LispVal.LispVal)
+                   (w1 :: GHC.Base.String) ->
+                 case Scheme.LispVal.showVal
+                        w of wild { Data.Text.Internal.Text dt dt1 dt2 ->
+                 let {
+                   end :: GHC.Prim.Int# = GHC.Prim.+# dt1 dt2
+                 } in
+                 letrec {
+                   $wunfold :: GHC.Prim.Int# -> [GHC.Types.Char]
+                     {- Arity: 1, Strictness: <S,U>, Inline: [0] -}
+                   = \ (ww :: GHC.Prim.Int#) ->
+                     case GHC.Prim.tagToEnum#
+                            @ GHC.Types.Bool
+                            (GHC.Prim.>=# ww end) of wild1 {
+                       GHC.Types.False
+                       -> case GHC.Prim.indexWord16Array# dt ww of r# { DEFAULT ->
+                          case GHC.Prim.tagToEnum#
+                                 @ GHC.Types.Bool
+                                 (GHC.Prim.geWord# r# 55296##) of wild2 {
+                            GHC.Types.False
+                            -> GHC.Types.:
+                                 @ GHC.Types.Char
+                                 (GHC.Types.C# (GHC.Prim.chr# (GHC.Prim.word2Int# r#)))
+                                 ($wunfold (GHC.Prim.+# ww 1#))
+                            GHC.Types.True
+                            -> case GHC.Prim.tagToEnum#
+                                      @ GHC.Types.Bool
+                                      (GHC.Prim.leWord# r# 56319##) of wild3 {
+                                 GHC.Types.False
+                                 -> GHC.Types.:
+                                      @ GHC.Types.Char
+                                      (GHC.Types.C# (GHC.Prim.chr# (GHC.Prim.word2Int# r#)))
+                                      ($wunfold (GHC.Prim.+# ww 1#))
+                                 GHC.Types.True
+                                 -> case GHC.Prim.indexWord16Array#
+                                           dt
+                                           (GHC.Prim.+# ww 1#) of r#1 { DEFAULT ->
+                                    GHC.Types.:
+                                      @ GHC.Types.Char
+                                      (GHC.Types.C#
+                                         (GHC.Prim.chr#
+                                            (GHC.Prim.+#
+                                               (GHC.Prim.+#
+                                                  (GHC.Prim.uncheckedIShiftL#
+                                                     (GHC.Prim.-# (GHC.Prim.word2Int# r#) 55296#)
+                                                     10#)
+                                                  (GHC.Prim.-# (GHC.Prim.word2Int# r#1) 56320#))
+                                               65536#)))
+                                      ($wunfold (GHC.Prim.+# ww 2#)) } } } }
+                       GHC.Types.True -> GHC.Types.[] @ GHC.Types.Char }
+                 } in
+                 GHC.Base.++ @ GHC.Types.Char ($wunfold dt1) w1 }) -}
+33b6c02c47a7551a9184b99ae0083a3e
+  data LispVal
+    = Atom Data.Text.Internal.Text
+    | List [Scheme.LispVal.LispVal]
+    | DottedList [Scheme.LispVal.LispVal] Scheme.LispVal.LispVal
+    | Vector (Data.Vector.Vector Scheme.LispVal.LispVal)
+    | Number GHC.Integer.Type.Integer
+    | Float GHC.Types.Double
+    | Ratio GHC.Real.Rational
+    | Complex (Data.Complex.Complex GHC.Types.Double)
+    | String Data.Text.Internal.Text
+    | Character GHC.Types.Char
+    | Bool GHC.Types.Bool
+33b6c02c47a7551a9184b99ae0083a3e
+  showVal :: Scheme.LispVal.LispVal -> Data.Text.Internal.Text
+  {- Arity: 1, Strictness: <S,1*U> -}
+instance GHC.Show.Show [Scheme.LispVal.LispVal]
+  = Scheme.LispVal.$fShowLispVal
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: none
+require own pkg trusted: False
+
