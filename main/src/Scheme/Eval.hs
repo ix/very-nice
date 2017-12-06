@@ -13,6 +13,7 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import Data.Complex
 import Data.Ratio
+import Control.Monad.Except
 
 import Scheme.LispVal
 import Scheme.Error
@@ -30,7 +31,7 @@ eval (List (Atom func : args)) = mapM eval args >>= apply func
 eval badForm = throwError $ BadSpecialForm "Unrecognized special form" badForm
 
 apply :: Text -> [LispVal] -> ThrowsError LispVal
-apply func args = maybe (throwError $ NotFunction "Unrecognized primitive functino args" func)
+apply func args = maybe (throwError $ NotFunction "Unrecognized primitive function args" func)
                         ($ args)
                         (lookup func primitives)
 
@@ -64,7 +65,7 @@ numericBinop op params = mapM unpackNum params >>= return . Number . foldl1 op
 
 -- TODO
 unpackNum :: LispVal -> ThrowsError Integer
-unpackNum (Number n) = n
+unpackNum (Number n) = return n
 unpackNum (List [n]) = unpackNum n
 unpackNum notNum = throwError $ TypeMismatch "number" notNum
 

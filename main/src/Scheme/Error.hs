@@ -4,12 +4,12 @@
 
 module Scheme.Error
   ( LispError (..)
-  , ThrowsError (..)
+  , ThrowsError
   , trapError
   , extractValue )
   where
 
-import Control.Monad.Error
+import Control.Monad.Except
 import Data.Text (Text)
 import qualified Data.Text as T
 import Text.Parsec
@@ -25,10 +25,6 @@ data LispError =
   | NotFunction String String
   | UnboundVar String String
   | Default String
-
-instance Error LispError where
-  noMsg = Default "Something happened"
-  strMsg = Default
 
 type ThrowsError = Either LispError
 

@@ -6,152 +6,152 @@ main main1,2
 main main0,1
 main main1,2
 
-./src/Scheme/Parse.hs,2003
+./src/Scheme/Parse.hs,2002
 module Scheme.ParseScheme.Parse2,3
+symbol symbol18,19
 symbol symbol19,20
-symbol symbol20,21
+readExpr readExpr21,22
 readExpr readExpr22,23
-readExpr readExpr23,24
+spaces spaces26,27
 spaces spaces27,28
-spaces spaces28,29
+parseString parseString29,30
 parseString parseString30,31
-parseString parseString31,32
+caseInsensitiveChar caseInsensitiveChar36,37
 caseInsensitiveChar caseInsensitiveChar37,38
-caseInsensitiveChar caseInsensitiveChar38,39
+caseInsensitiveString caseInsensitiveString39,40
 caseInsensitiveString caseInsensitiveString40,41
-caseInsensitiveString caseInsensitiveString41,42
+parseCharacter parseCharacter42,43
 parseCharacter parseCharacter43,44
-parseCharacter parseCharacter44,45
+escapedChars escapedChars54,55
 escapedChars escapedChars55,56
-escapedChars escapedChars56,57
+parseAtom parseAtom65,66
 parseAtom parseAtom66,67
-parseAtom parseAtom67,68
+parseBool parseBool75,76
 parseBool parseBool76,77
-parseBool parseBool77,78
+toDouble toDouble80,81
 toDouble toDouble81,82
-toDouble toDouble82,83
+parseComplex parseComplex84,85
 parseComplex parseComplex85,86
-parseComplex parseComplex86,87
+parseRatio parseRatio91,92
 parseRatio parseRatio92,93
-parseRatio parseRatio93,94
+parseFloat parseFloat97,98
 parseFloat parseFloat98,99
-parseFloat parseFloat99,100
-parseNumber parseNumber104,105
 parseNumber parseNumber105,106
-parseDecimal parseDecimal111,112
+parseNumber parseNumber106,107
 parseDecimal parseDecimal112,113
-parseDecPref parseDecPref114,115
+parseDecimal parseDecimal113,114
 parseDecPref parseDecPref115,116
-parseHex parseHex119,120
+parseDecPref parseDecPref116,117
 parseHex parseHex120,121
-parseOct parseOct124,125
+parseHex parseHex121,122
 parseOct parseOct125,126
-parseBin parseBin129,130
+parseOct parseOct126,127
 parseBin parseBin130,131
-hexToDec hexToDec134,135
+parseBin parseBin131,132
 hexToDec hexToDec135,136
-octToDec octToDec136,137
+hexToDec hexToDec136,137
 octToDec octToDec137,138
-binToDec binToDec138,139
+octToDec octToDec138,139
 binToDec binToDec139,140
-parseList parseList144,145
+binToDec binToDec140,141
 parseList parseList145,146
-parseList' parseList'149,150
+parseList parseList146,147
 parseList' parseList'150,151
-parseVector parseVector156,157
+parseList' parseList'151,152
 parseVector parseVector157,158
-parseVector' parseVector'161,162
-parseQuoted parseQuoted164,165
+parseVector parseVector158,159
+parseVector' parseVector'162,163
 parseQuoted parseQuoted165,166
-parseQuasiquote parseQuasiquote169,170
+parseQuoted parseQuoted166,167
 parseQuasiquote parseQuasiquote170,171
-parseUnquote parseUnquote174,175
+parseQuasiquote parseQuasiquote171,172
 parseUnquote parseUnquote175,176
-parseExpr parseExpr179,180
+parseUnquote parseUnquote176,177
 parseExpr parseExpr180,181
-unwordsList unwordsList194,195
+parseExpr parseExpr181,182
 unwordsList unwordsList195,196
+unwordsList unwordsList196,197
 
 ./src/Scheme/LispVal.hs,477
-module Scheme.LispValScheme.LispVal2,3
-data LispVal LispVal13,14
-    Atom Atom14,15
-  | List List15,16
-  | DottedList DottedList16,17
-  | Vector Vector17,18
-  | Number Number18,19
-  | Float Float19,20
-  | Ratio Ratio20,21
-  | Complex Complex21,22
-  | String String22,23
-  | Character Character23,24
-  | Bool Bool24,25
-instance instance26,27
-showVal showVal28,29
-showVal showVal29,30
-unwordsList unwordsList39,40
-unwordsList unwordsList40,41
+module Scheme.LispValScheme.LispVal5,6
+data LispVal LispVal16,17
+    Atom Atom17,18
+  | List List18,19
+  | DottedList DottedList19,20
+  | Vector Vector20,21
+  | Number Number21,22
+  | Float Float22,23
+  | Ratio Ratio23,24
+  | Complex Complex24,25
+  | String String25,26
+  | Character Character26,27
+  | Bool Bool27,28
+instance instance29,30
+showVal showVal31,32
+showVal showVal32,33
+unwordsList unwordsList42,43
+unwordsList unwordsList43,44
 
 ./src/Scheme/Error.hs,564
-module Scheme.ErrorScheme.Error2,3
-data LispError LispError17,18
-    NumArgs NumArgs18,19
-  | TypeMismatch TypeMismatch19,20
-  | Parser Parser20,21
-  | BadSpecialForm BadSpecialForm21,22
-  | NotFunction NotFunction22,23
-  | UnboundVar UnboundVar23,24
-  | Default Default24,25
-instance instance26,27
-type ThrowsError ThrowsError30,31
-showError showError34,35
-showError showError35,36
-trapError trapError44,45
-extractValue extractValue46,47
-extractValue extractValue47,48
-unwordsList unwordsList50,51
-unwordsList unwordsList51,52
+module Scheme.ErrorScheme.Error4,5
+data LispError LispError19,20
+    NumArgs NumArgs20,21
+  | TypeMismatch TypeMismatch21,22
+  | Parser Parser22,23
+  | BadSpecialForm BadSpecialForm23,24
+  | NotFunction NotFunction24,25
+  | UnboundVar UnboundVar25,26
+  | Default Default26,27
+type ThrowsError ThrowsError28,29
+instance instance30,31
+showError showError32,33
+showError showError33,34
+trapError trapError42,43
+extractValue extractValue44,45
+extractValue extractValue45,46
+unwordsList unwordsList48,49
+unwordsList unwordsList49,50
 
-./src/Scheme/Eval.hs,932
-module Scheme.EvalScheme.Eval2,3
-unwordsList unwordsList15,16
-unwordsList unwordsList16,17
-eval eval18,19
-eval eval20,21
-apply apply27,28
-apply apply28,29
-primitives primitives32,33
-primitives primitives33,34
-numericBinop numericBinop55,56
-numericBinop numericBinop56,57
-unpackNum unpackNum61,62
-unpackNum unpackNum62,63
-unaryOp unaryOp66,67
-unaryOp unaryOp67,68
-symbolp symbolp70,71
-pairp pairp71,72
-listp listp72,73
-boolp boolp73,74
-charp charp74,75
-stringp stringp75,76
-vectorp vectorp76,77
-symbolp symbolp78,79
-pairp pairp80,81
-listp listp83,84
-boolp boolp85,86
-charp charp87,88
-stringp stringp89,90
-vectorp vectorp91,92
-numberp numberp95,96
-complexp complexp96,97
-realp realp97,98
-rationalp rationalp98,99
-integerp integerp99,100
-numberp numberp101,102
-complexp complexp102,103
-realp realp104,105
-rationalp rationalp106,107
-integerp integerp108,109
+./src/Scheme/Eval.hs,941
+module Scheme.EvalScheme.Eval6,7
+unwordsList unwordsList20,21
+unwordsList unwordsList21,22
+eval eval23,24
+eval eval25,26
+apply apply32,33
+apply apply33,34
+primitives primitives37,38
+primitives primitives38,39
+numericBinop numericBinop60,61
+numericBinop numericBinop61,62
+unpackNum unpackNum66,67
+unpackNum unpackNum67,68
+unaryOp unaryOp71,72
+unaryOp unaryOp72,73
+symbolp symbolp75,76
+pairp pairp76,77
+listp listp77,78
+boolp boolp78,79
+charp charp79,80
+stringp stringp80,81
+vectorp vectorp81,82
+symbolp symbolp83,84
+pairp pairp85,86
+listp listp88,89
+boolp boolp90,91
+charp charp92,93
+stringp stringp94,95
+vectorp vectorp96,97
+numberp numberp100,101
+complexp complexp101,102
+realp realp102,103
+rationalp rationalp103,104
+integerp integerp104,105
+numberp numberp106,107
+complexp complexp107,108
+realp realp109,110
+rationalp rationalp111,112
+integerp integerp113,114
 
 ./app/Main.hs,56
 module Main Main0,1
