@@ -1,5 +1,0 @@
-(load "boolean.scm")
-
-(define (eqv? obj1 obj2)
-  (cond ((and (boolean? obj1) (boolean? obj2))
-         (boolean=? obj1 obj2))))

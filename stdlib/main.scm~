@@ -1,6 +1,0 @@
-(define (eqv? obj1 obj2)
-  (cond ((and (boolean? obj1) (boolean? obj2))
-         (boolean=? obj1 obj2))))
-
-(define (boolean=? obj1 obj2)
-  (and obj1 obj2))
