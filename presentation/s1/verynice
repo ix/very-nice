@@ -1,0 +1,119 @@
+very nice
+
+"i feel like your project is going to have a ton of computer
+sciency stuff but when you present it it's going to be
+like you can add numbers"
+- willy tipps
+
+what is it?
+- a scheme interpreter, for people who can interpret scheme
+- written in haskell
+- currently it has arithmetic functions and exception handling (wip)
+
+what is an interpreter?
+- it interprets your program -- think of a java interpreter as the jvm
+- it runs your code through a lexer/parser to get an ast (data structure)
+- then runs the ast through an evaluator to get your result
+- a compiler does all this, but generates a binary that can be run alone
+
+why an interpreter over a compiler?
+- laziness
+- \_(ツ)_/
+
+what did i plan to gain?
+- a better knowledge of haskell's Applicative and Monad types
+- a knowledge of scheme's macro system
+- knowledge of interpreters, enough to make a proper compiler
+- meme points from my friends
+
+what did i actually gain?
+
+/home/ajl/src/very-nice/src/Scheme/Eval.hs:57:26: error:
+    • Couldn't match type ‘LispVal’ with ‘Either LispError LispVal’
+      Expected type: [LispVal] -> ThrowsError LispVal
+        Actual type: [LispVal] -> LispVal
+    • In the expression: unaryOp realp
+      In the expression: ("real?", unaryOp realp)
+      In the expression:
+        [("+", numericBinop (+)), ("-", numericBinop (-)),
+         ("*", numericBinop (*)), ("/", numericBinop div), ....]
+
+/home/ajl/src/very-nice/src/Scheme/Eval.hs:34:90: error:
+    • Couldn't match type ‘Text’ with ‘[Char]’
+      Expected type: String
+        Actual type: Text
+    • In the second argument of ‘NotFunction’, namely ‘func’
+      In the second argument of ‘($)’, namely
+        ‘NotFunction "Unrecognized primitive function args" func’
+      In the first argument of ‘maybe’, namely
+        ‘(throwError
+          $ NotFunction "Unrecognized primitive function args" func)’
+
+/home/ajl/src/very-nice/src/Scheme/Eval.hs:48:26: error:
+    • Couldn't match type ‘LispVal’ with ‘Either LispError LispVal’
+      Expected type: [LispVal] -> ThrowsError LispVal
+        Actual type: [LispVal] -> LispVal
+    • In the expression: unaryOp pairp
+      In the expression: ("pair?", unaryOp pairp)
+      In the expression:
+        [("+", numericBinop (+)), ("-", numericBinop (-)),
+         ("*", numericBinop (*)), ("/", numericBinop div), ....]
+
+@bord.png
+
+so, why did i choose haskell?
+- based around the lambda calculus
+- there's a certain weird aura around it due to monads
+- type system allows to make code extremely concise
+- literate haskell is great
+- husk scheme is written in haskell, allowing me to see a previous example
+
+why scheme?
+- very easy to parse (everything is a list)
+- the standard library (everything you need to know) can fit on an index card
+- extremely simple to interpret
+- can be learnt in 20 minutes
+- functional, meaning no loops, recursion, and no mutable variables
+
+how can you write ANYTHING without loops?
+
+tail recursion!
+- have a function take an argument x e.g. (func x y)
+- keep incrementing it with every repeated call
+
+fibonacci sequence
+
+naive definition:
+fib 0 = 0
+fib 1 = 1
+fib n = fib (n-1) + fib (n-2)
+
+this is O(fib n), so how can we improve it?
+
+(requires GHC extension BangPatterns)
+fib n = go n (0,1)
+    where
+        go !n (!a, !b) | n == 0 = a
+                              | otherwise = go (n-1) (b, a+b)
+
+none of these require mutating any variables!
+
+NONE of the code in very-nice uses a workaround like state monads, etc
+it is planned to implement mutation in the scheme language using (set!)
+
+what's done?
+- parser
+- lexer
+- some of the evaluator
+- some error checking
+
+what's next?
+- function definitions
+- completion of error checker
+- I/O functions
+- static typing
+- REPL
+
+demo time!
+
+questions?
