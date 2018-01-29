@@ -15,7 +15,6 @@ import qualified Data.Text as T
 import Text.Parsec
 
 import Scheme.LispVal
-import Scheme.Parse
 
 data LispError =
     NumArgs Integer [LispVal]
@@ -39,11 +38,13 @@ showError (NumArgs expected found) = "Expected " ++ show expected
 showError (TypeMismatch expected found) = "Invalid type: expected " ++ expected
                                           ++ " found " ++ show found
 showError (Parser parseErr) = "Parse error at " ++ show parseErr
+showError _ = "Something happened"
 
 trapError action = catchError action (return . show)
 
 extractValue :: ThrowsError a -> a
 extractValue (Right val) = val
+-- purposely undefined for Left constructor; programmer error
 
 -- don't really want to redeclare this but fugit quick fix
 unwordsList :: [LispVal] -> Text

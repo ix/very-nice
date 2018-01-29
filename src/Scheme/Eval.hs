@@ -27,15 +27,15 @@ eval val@(String _) = return val
 eval val@(Number _) = return val
 eval val@(Bool _) = return val
 eval (List [Atom "quote", val]) = return val
-eval (List (Atom func : args)) = mapM eval args >>= apply func
+eval (List (Atom func : args)) = mapM eval args >>= apply (T.unpack func)
 eval badForm = throwError $ BadSpecialForm "Unrecognized special form" badForm
 
-apply :: Text -> [LispVal] -> ThrowsError LispVal
+apply :: String -> [LispVal] -> ThrowsError LispVal
 apply func args = maybe (throwError $ NotFunction "Unrecognized primitive function args" func)
                         ($ args)
                         (lookup func primitives)
 
-primitives :: [(Text, [LispVal] -> ThrowsError LispVal)]
+primitives :: [(String, [LispVal] -> ThrowsError LispVal)]
 primitives = [ ("+", numericBinop (+))
              , ("-", numericBinop (-))
              , ("*", numericBinop (*))
@@ -58,19 +58,19 @@ primitives = [ ("+", numericBinop (+))
              , ("rational?", unaryOp rationalp)
              , ("integer?", unaryOp integerp)]
 
-numericBinop :: (Num a) => (a -> a -> a) -> [LispVal] -> ThrowsError LispVal
-numericBinop op [] = throwsError $ NumArgs 2 []
-numericBinop op singleval@[_] = throwsError $ NumArgs 2 singleVal
+numericBinop :: (Integer -> Integer -> Integer) -> [LispVal] -> ThrowsError LispVal
+numericBinop op [] = throwError $ NumArgs 2 []
+numericBinop op singleVal@[_] = throwError $ NumArgs 2 singleVal
 numericBinop op params = mapM unpackNum params >>= return . Number . foldl1 op
 
--- TODO
+-- TODO: more types!
 unpackNum :: LispVal -> ThrowsError Integer
 unpackNum (Number n) = return n
 unpackNum (List [n]) = unpackNum n
 unpackNum notNum = throwError $ TypeMismatch "number" notNum
 
-unaryOp :: (LispVal -> LispVal) -> [LispVal] -> LispVal
-unaryOp f [v] = f v 
+unaryOp :: (LispVal -> LispVal) -> [LispVal] -> ThrowsError LispVal
+unaryOp f [v] = return (f v) 
 
 -- type testing
 symbolp :: LispVal -> LispVal

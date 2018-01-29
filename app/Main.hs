@@ -3,6 +3,7 @@ module Main where
 import System.Environment
 import Data.Text (Text)
 import qualified Data.Text as T
+import Control.Monad
 
 import Scheme.Parse
 import Scheme.Eval

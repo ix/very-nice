@@ -6,71 +6,71 @@ main main1,2
 main main0,1
 main main1,2
 
-./src/Scheme/Parse.hs,2002
+./src/Scheme/Parse.hs,2005
 module Scheme.ParseScheme.Parse2,3
-symbol symbol18,19
-symbol symbol19,20
-readExpr readExpr21,22
-readExpr readExpr22,23
-spaces spaces26,27
-spaces spaces27,28
-parseString parseString29,30
-parseString parseString30,31
-caseInsensitiveChar caseInsensitiveChar36,37
-caseInsensitiveChar caseInsensitiveChar37,38
-caseInsensitiveString caseInsensitiveString39,40
-caseInsensitiveString caseInsensitiveString40,41
-parseCharacter parseCharacter42,43
-parseCharacter parseCharacter43,44
-escapedChars escapedChars54,55
-escapedChars escapedChars55,56
-parseAtom parseAtom65,66
-parseAtom parseAtom66,67
-parseBool parseBool75,76
-parseBool parseBool76,77
-toDouble toDouble80,81
-toDouble toDouble81,82
-parseComplex parseComplex84,85
-parseComplex parseComplex85,86
-parseRatio parseRatio91,92
-parseRatio parseRatio92,93
-parseFloat parseFloat97,98
-parseFloat parseFloat98,99
-parseNumber parseNumber105,106
-parseNumber parseNumber106,107
-parseDecimal parseDecimal112,113
-parseDecimal parseDecimal113,114
-parseDecPref parseDecPref115,116
-parseDecPref parseDecPref116,117
-parseHex parseHex120,121
-parseHex parseHex121,122
-parseOct parseOct125,126
-parseOct parseOct126,127
-parseBin parseBin130,131
-parseBin parseBin131,132
-hexToDec hexToDec135,136
-hexToDec hexToDec136,137
-octToDec octToDec137,138
-octToDec octToDec138,139
-binToDec binToDec139,140
-binToDec binToDec140,141
-parseList parseList145,146
-parseList parseList146,147
-parseList' parseList'150,151
-parseList' parseList'151,152
-parseVector parseVector157,158
-parseVector parseVector158,159
-parseVector' parseVector'162,163
-parseQuoted parseQuoted165,166
-parseQuoted parseQuoted166,167
-parseQuasiquote parseQuasiquote170,171
-parseQuasiquote parseQuasiquote171,172
-parseUnquote parseUnquote175,176
-parseUnquote parseUnquote176,177
-parseExpr parseExpr180,181
-parseExpr parseExpr181,182
-unwordsList unwordsList195,196
-unwordsList unwordsList196,197
+symbol symbol20,21
+symbol symbol21,22
+readExpr readExpr23,24
+readExpr readExpr24,25
+spaces spaces28,29
+spaces spaces29,30
+parseString parseString31,32
+parseString parseString32,33
+caseInsensitiveChar caseInsensitiveChar38,39
+caseInsensitiveChar caseInsensitiveChar39,40
+caseInsensitiveString caseInsensitiveString41,42
+caseInsensitiveString caseInsensitiveString42,43
+parseCharacter parseCharacter44,45
+parseCharacter parseCharacter45,46
+escapedChars escapedChars56,57
+escapedChars escapedChars57,58
+parseAtom parseAtom67,68
+parseAtom parseAtom68,69
+parseBool parseBool77,78
+parseBool parseBool78,79
+toDouble toDouble82,83
+toDouble toDouble83,84
+parseComplex parseComplex86,87
+parseComplex parseComplex87,88
+parseRatio parseRatio93,94
+parseRatio parseRatio94,95
+parseFloat parseFloat99,100
+parseFloat parseFloat100,101
+parseNumber parseNumber107,108
+parseNumber parseNumber108,109
+parseDecimal parseDecimal114,115
+parseDecimal parseDecimal115,116
+parseDecPref parseDecPref117,118
+parseDecPref parseDecPref118,119
+parseHex parseHex122,123
+parseHex parseHex123,124
+parseOct parseOct127,128
+parseOct parseOct128,129
+parseBin parseBin132,133
+parseBin parseBin133,134
+hexToDec hexToDec137,138
+hexToDec hexToDec138,139
+octToDec octToDec139,140
+octToDec octToDec140,141
+binToDec binToDec141,142
+binToDec binToDec142,143
+parseList parseList147,148
+parseList parseList148,149
+parseList' parseList'152,153
+parseList' parseList'153,154
+parseVector parseVector159,160
+parseVector parseVector160,161
+parseVector' parseVector'164,165
+parseQuoted parseQuoted167,168
+parseQuoted parseQuoted168,169
+parseQuasiquote parseQuasiquote172,173
+parseQuasiquote parseQuasiquote173,174
+parseUnquote parseUnquote177,178
+parseUnquote parseUnquote178,179
+parseExpr parseExpr182,183
+parseExpr parseExpr183,184
+unwordsList unwordsList197,198
+unwordsList unwordsList198,199
 
 ./src/Scheme/LispVal.hs,477
 module Scheme.LispValScheme.LispVal5,6
@@ -94,23 +94,23 @@ unwordsList unwordsList43,44
 
 ./src/Scheme/Error.hs,564
 module Scheme.ErrorScheme.Error4,5
-data LispError LispError19,20
-    NumArgs NumArgs20,21
-  | TypeMismatch TypeMismatch21,22
-  | Parser Parser22,23
-  | BadSpecialForm BadSpecialForm23,24
-  | NotFunction NotFunction24,25
-  | UnboundVar UnboundVar25,26
-  | Default Default26,27
-type ThrowsError ThrowsError28,29
-instance instance30,31
+data LispError LispError18,19
+    NumArgs NumArgs19,20
+  | TypeMismatch TypeMismatch20,21
+  | Parser Parser21,22
+  | BadSpecialForm BadSpecialForm22,23
+  | NotFunction NotFunction23,24
+  | UnboundVar UnboundVar24,25
+  | Default Default25,26
+type ThrowsError ThrowsError27,28
+instance instance29,30
+showError showError31,32
 showError showError32,33
-showError showError33,34
 trapError trapError42,43
 extractValue extractValue44,45
 extractValue extractValue45,46
-unwordsList unwordsList48,49
 unwordsList unwordsList49,50
+unwordsList unwordsList50,51
 
 ./src/Scheme/Eval.hs,941
 module Scheme.EvalScheme.Eval6,7
@@ -155,5 +155,5 @@ integerp integerp113,114
 
 ./app/Main.hs,56
 module Main Main0,1
-main main10,11
 main main11,12
+main main12,13

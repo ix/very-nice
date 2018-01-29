@@ -13,16 +13,18 @@ import Data.Ratio
 import Data.Complex
 import qualified Data.Vector as V
 import Numeric
+import Control.Monad.Except
 
 import Scheme.LispVal
+import Scheme.Error
 
 symbol :: Parsec String () Char
 symbol = oneOf "!$%&|*+-/:<=>?@^_~"
 
-readExpr :: String -> LispVal
+readExpr :: String -> ThrowsError LispVal
 readExpr input = case parse parseExpr "lisp" input of
-  Left err -> String $ T.pack ("No match: " ++ show err)
-  Right val -> val
+  Left err -> throwError $ Parser err
+  Right val -> return val
 
 spaces :: Parsec String () ()
 spaces = skipMany1 space
