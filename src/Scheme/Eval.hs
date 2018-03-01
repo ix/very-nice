@@ -2,7 +2,6 @@
 
 -- TODO:
 -- - refactor numericBinop to support non-Integer types
--- - function definitions
 
 module Scheme.Eval
   ( showVal
@@ -177,3 +176,18 @@ cons [x, List xs] = return $ List $ x:xs
 cons [x, DottedList xs xl] = return $ DottedList (x:xs) xl
 cons [x1, x2] = return $ DottedList [x1] x2
 cons badArgList = throwError $ NumArgs 2 badArgList
+
+-- equality checkers
+eqv :: [LispVal] -> ThrowsError LispVal
+eqv [(Bool uno), (Bool dos)] = return $ Bool $ uno == dos
+eqv [(Number uno), (Number dos)] = return $ Bool $ uno == dos
+eqv [(String uno), (String dos)] = return $ Bool $ uno == dos
+eqv [(Atom uno), (Atom dos)] = return $ Bool $ uno == dos
+eqv [(DottedList xs x), (DottedList ys y)] = eqv $ [List $ xs ++ [x], List $ ys ++ [y]]
+eqv [(List uno), (List dos)] = return $ Bool $ (length uno == length dos) &&
+                                               (all eqvPair $ zip arg1 arg2)
+  where eqvPair (x1, x2) = case eqv [x1, x2] of
+          Left err -> False
+          Right (Bool val) -> val = return $ Bool False
+eqv [_, _] = return $ Bool False
+eqv badArgList = throwError $ NumArgs 2 badArgList
