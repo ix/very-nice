@@ -1,4 +1,4 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, ExistentialQuantification #-}
 
 -- TODO:
 -- - refactor numericBinop to support non-Integer types
@@ -17,6 +17,8 @@ import Control.Monad.Except
 import Scheme.LispVal
 import Scheme.Error
 
+data Unpacker = forall a. Eq a => AnyUnpacker (LispVal -> ThrowsError a)
+
 unwordsList :: [LispVal] -> Text
 unwordsList = T.unwords . map showVal
 
@@ -30,7 +32,8 @@ eval (List [Atom "if", pred1, conseq, alt]) =
   do result <- eval pred1
      case result of
        Bool False -> eval alt
-       _ -> eval conseq
+       Bool True  -> eval conseq
+       notBool    -> throwError $ TypeMismatch "boolean" notBool
 eval (List (Atom func : args)) = mapM eval args >>= apply (T.unpack func)
 eval badForm = throwError $ BadSpecialForm "Unrecognized special form" badForm
 
@@ -42,6 +45,10 @@ apply func args = maybe (throwError $ NotFunction "Unrecognized primitive functi
 primitives :: [(String, [LispVal] -> ThrowsError LispVal)]
 primitives = [ ("car", car)
              , ("cdr", cdr)
+             , ("cons", cons)
+             , ("eq?", eqv)
+             , ("eqv?", eqv)
+             , ("equal?", equal)
 
              , ("+", numericBinop (+))
              , ("-", numericBinop (-))
@@ -114,6 +121,13 @@ unpackBool :: LispVal -> ThrowsError Bool
 unpackBool (Bool b) = return b
 unpackBool notBool = throwError $ TypeMismatch "boolean" notBool
 
+unpackEquals :: LispVal -> LispVal -> Unpacker -> ThrowsError Bool
+unpackEquals uno dos (AnyUnpacker unpacker) =
+  do unpackuno <- unpacker uno
+     unpackdos <- unpacker dos
+     return $ unpackuno == unpackdos
+  `catchError` (const $ return False)
+
 -- type testing
 symbolp :: LispVal -> LispVal
 pairp   :: LispVal -> LispVal
@@ -185,9 +199,17 @@ eqv [(String uno), (String dos)] = return $ Bool $ uno == dos
 eqv [(Atom uno), (Atom dos)] = return $ Bool $ uno == dos
 eqv [(DottedList xs x), (DottedList ys y)] = eqv $ [List $ xs ++ [x], List $ ys ++ [y]]
 eqv [(List uno), (List dos)] = return $ Bool $ (length uno == length dos) &&
-                                               (all eqvPair $ zip arg1 arg2)
+                                               (all eqvPair $ zip uno dos) 
   where eqvPair (x1, x2) = case eqv [x1, x2] of
           Left err -> False
-          Right (Bool val) -> val = return $ Bool False
+          Right (Bool val) -> val
 eqv [_, _] = return $ Bool False
 eqv badArgList = throwError $ NumArgs 2 badArgList
+
+equal :: [LispVal] -> ThrowsError LispVal
+equal [uno, dos] = do
+  primEq <- liftM or $ mapM (unpackEquals uno dos)
+                       [AnyUnpacker unpackNum, AnyUnpacker unpackStr, AnyUnpacker unpackBool]
+  eqvEq  <- eqv [uno, dos]
+  return $ Bool $ (primEq || let (Bool x) = eqvEq in x)
+equal badArgList = throwError $ NumArgs 2 badArgList
