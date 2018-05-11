@@ -5,7 +5,11 @@
 
 module Scheme.Eval
   ( showVal
-  , eval )
+  , eval
+  , Env
+  , nullEnv
+  , liftThrows
+  , runIOThrows )
   where
 
 import Data.Text (Text)
@@ -13,35 +17,79 @@ import qualified Data.Text as T
 import Data.Complex
 import Data.Ratio
 import Control.Monad.Except
+import Data.IORef
+import Control.Applicative
 
 import Scheme.LispVal
 import Scheme.Error
 
 data Unpacker = forall a. Eq a => AnyUnpacker (LispVal -> ThrowsError a)
+type Env = IORef [(String, IORef LispVal)]
+type IOThrowsError = ExceptT LispError IO
 
-unwordsList :: [LispVal] -> Text
-unwordsList = T.unwords . map showVal
-
-eval :: LispVal -> ThrowsError LispVal
--- self-evaluating
-eval val@(String _) = return val
-eval val@(Number _) = return val
-eval val@(Bool _) = return val
-eval (List [Atom "quote", val]) = return val
-eval (List [Atom "if", pred1, conseq, alt]) =
-  do result <- eval pred1
+-- THE. EVALUATOR.
+eval :: Env -> LispVal -> IOThrowsError LispVal
+eval env val@(String _) = return val
+eval env val@(Number _) = return val
+eval env val@(Bool _) = return val
+eval env (Atom id) = getVar env $ T.unpack id
+eval env (List [Atom "quote", val]) = return val
+eval env (List [Atom "if", pred1, conseq, alt]) =
+  do result <- eval env pred1
      case result of
-       Bool False -> eval alt
-       Bool True  -> eval conseq
+       Bool False -> eval env alt
+       Bool True  -> eval env conseq
        notBool    -> throwError $ TypeMismatch "boolean" notBool
-eval (List (Atom func : args)) = mapM eval args >>= apply (T.unpack func)
-eval badForm = throwError $ BadSpecialForm "Unrecognized special form" badForm
+eval env (List [Atom "set!", Atom var, form]) =
+  eval env form >>= setVar env (T.unpack var)
+eval env (List [Atom "define", Atom var, form]) =
+  eval env form >>= defineVar env (T.unpack var)
+eval env (List (Atom func : args)) = mapM (eval env) args >>= liftThrows . apply (T.unpack func)
+eval env badForm = throwError $ BadSpecialForm "Unrecognized special form" badForm
 
 apply :: String -> [LispVal] -> ThrowsError LispVal
 apply func args = maybe (throwError $ NotFunction "Unrecognized primitive function args" func)
                         ($ args)
                         (lookup func primitives)
 
+-- mutability
+nullEnv :: IO Env
+nullEnv = newIORef []
+
+liftThrows :: ThrowsError a -> IOThrowsError a
+liftThrows (Left err) = throwError err
+liftThrows (Right val) = return val
+
+runIOThrows :: IOThrowsError String -> IO String
+runIOThrows act = runExceptT (trapError act) >>= return . extractValue
+
+isBound :: Env -> String -> IO Bool
+isBound envRef var = readIORef envRef >>= return . maybe False (const True) . lookup var
+
+getVar :: Env -> String -> IOThrowsError LispVal
+getVar envRef var = do env <- liftIO $ readIORef envRef
+                       maybe (throwError $ UnboundVar "Attempting to get unbound variable" var)
+                         (liftIO . readIORef)
+                         (lookup var env)
+
+setVar :: Env -> String -> LispVal -> IOThrowsError LispVal
+setVar envRef var value = do env <- liftIO $ readIORef envRef
+                             maybe (throwError $ UnboundVar "Attempting to get unbound variable" var)
+                               (liftIO . (flip writeIORef value))
+                               (lookup var env)
+                             return value
+
+defineVar :: Env -> String -> LispVal -> IOThrowsError LispVal
+defineVar envRef var value = do
+  alreadyDefined <- liftIO $ isBound envRef var
+  if alreadyDefined
+    then setVar envRef var value >> return value
+    else liftIO $ do valueRef <- newIORef value
+                     env <- readIORef envRef
+                     _ <- writeIORef envRef ((var, valueRef):env)
+                     return value
+
+-- list of primitives implemented
 primitives :: [(String, [LispVal] -> ThrowsError LispVal)]
 primitives = [ ("car", car)
              , ("cdr", cdr)
@@ -208,8 +256,8 @@ eqv badArgList = throwError $ NumArgs 2 badArgList
 
 equal :: [LispVal] -> ThrowsError LispVal
 equal [uno, dos] = do
-  primEq <- liftM or $ mapM (unpackEquals uno dos)
+  primEq <- or <$> mapM (unpackEquals uno dos)
                        [AnyUnpacker unpackNum, AnyUnpacker unpackStr, AnyUnpacker unpackBool]
   eqvEq  <- eqv [uno, dos]
-  return $ Bool $ (primEq || let (Bool x) = eqvEq in x)
+  return $ Bool (primEq || let (Bool x) = eqvEq in x)
 equal badArgList = throwError $ NumArgs 2 badArgList

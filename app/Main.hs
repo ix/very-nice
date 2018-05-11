@@ -15,5 +15,5 @@ main = do
   args <- getArgs
   case length args of
     0 -> runRepl
-    1 -> evalAndPrint $ args !! 0
-    otherwise -> putStrLn "very-nice: only takes 1 argument"
+    1 -> runOne $ args !! 0
+    _ -> putStrLn "very-nice: only takes 1 argument"
